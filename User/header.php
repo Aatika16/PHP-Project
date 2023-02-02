@@ -1,8 +1,16 @@
 
 <?php
+function PageName() {
+  return substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
+}
+$current_page = PageName();
+
+
 include('../Admin/connection.php');
 $q="select * from category";
 $run=mysqli_query($con,$q);
+
+
 
 ?>
 
@@ -100,14 +108,14 @@ $run=mysqli_query($con,$q);
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="navbar-nav ml-auto text-center">
-            <li class="nav-item active">
+            <li class="nav-item <?php echo $current_page == 'index.php' ? 'active' : NULL ?>">
               <a class="nav-link" href="index.php">Home</a>
             </li>
             
-            <li class="nav-item @@courses">
+            <li class="nav-item <?php echo $current_page == 'authors.php' ? 'active' : NULL ?>">
               <a class="nav-link" href="authors.php">Authors</a>
             </li>
-            <li class="nav-item @@events">
+            <li class="nav-item <?php echo $current_page == 'books.php' ? 'active' : NULL ?>">
               <a class="nav-link" href="books.php">Books</a>
             </li>
            
@@ -117,7 +125,7 @@ $run=mysqli_query($con,$q);
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <?php while($data=mysqli_fetch_assoc($run)) { ?>
-              <li><a class="dropdown-item" href="teacher.html"><?php echo $data['cat_name'] ?></a></li>
+              <li><a class="dropdown-item" href="books.php?cat_id=<?php echo $data['id'] ?>"><?php echo $data['cat_name'] ?></a></li>
                <?php } ?> 
               
               </ul>

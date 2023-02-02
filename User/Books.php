@@ -1,8 +1,22 @@
 
 <?php include('header.php');
 include('../Admin/connection.php');
+@$cat_id=$_GET['cat_id'];
+@$auth_id=$_GET['auth_id'];
+if($cat_id!=null){
+    $q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
+    join author on books.auth_id_FK=author.id where category.id='$cat_id'"; 
+}
+else if($auth_id!=null){
+    $q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
+join author on books.auth_id_FK=author.id  where author.id='$auth_id'";
+}
+else{
 $q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
 join author on books.auth_id_FK=author.id";
+}
+
+
 $run=mysqli_query($con,$q);
 
 
@@ -105,7 +119,8 @@ $run=mysqli_query($con,$q);
             <p><i class="ti-location-pin text-primary mr-2"><?php echo $data['auth_name'] ?></i></p>
             <a href="event-single.html">
               <h4 class="card-title"><?php echo $data['book_name'] ?>.</h4>
-              <h6><?php echo $data['cat_name'] ?></h6>
+              <a href="single.php?id=<?php echo $data['id'] ?>"> Read More</a>
+              <a href="books.php?cat_id=<?php echo $data['cat_id_FK'] ?>"><?php echo $data['cat_name'] ?></a>
             </a>
           </div>
         </div>

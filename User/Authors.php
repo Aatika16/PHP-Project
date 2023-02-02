@@ -108,7 +108,7 @@ $run=mysqli_query($con,$q);
           <h4 class="card-title"><?php echo $data['auth_name'] ?></h4>
         </a>
         
-        <a href="Books.php" class="btn btn-primary btn-sm">Books</a>
+        <a href="Books.php?auth_id=<?php echo $data['id'] ?>" class="btn btn-primary btn-sm">Books</a>
       </div>
     </div>
   </div>
