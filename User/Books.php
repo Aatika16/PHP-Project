@@ -121,6 +121,11 @@ $run=mysqli_query($con,$q);
               <h4 class="card-title"><?php echo $data['book_name'] ?>.</h4>
               <a href="single.php?id=<?php echo $data['id'] ?>"> Read More</a>
               <a href="books.php?cat_id=<?php echo $data['cat_id_FK'] ?>"><?php echo $data['cat_name'] ?></a>
+<?php if(isset($_SESSION['FRONT'])){ ?>
+              <a href="books.php" download>Download</a>
+<?php } else {?>
+    <a href="login.php">Download</a>
+    <?php } ?>
             </a>
           </div>
         </div>
