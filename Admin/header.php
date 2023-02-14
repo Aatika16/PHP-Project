@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['USER'])){
+if(!(isset($_SESSION['ADMIN']) || isset($_SESSION['PUB']))){
   header('location:login.php');
 }
 ?>
@@ -250,10 +250,12 @@ if(!isset($_SESSION['USER'])){
     <!--sidebar start-->
     <aside>
       <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
+        <!-- for Admin-->
+<?php if(isset($_SESSION['ADMIN'])){ ?>
+
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
-          <h5 class="centered"><?php echo $_SESSION['USER'] ."-" . $_SESSION['ROLE'] ?></h5>
+          <h5 class="centered"><?php echo $_SESSION['ADMIN'] ."-" . $_SESSION['ADMIN_ROLE'] ?></h5>
           <li class="mt">
             <a class="active" href="index.html">
               <i class="fa fa-dashboard"></i>
@@ -317,6 +319,62 @@ if(!isset($_SESSION['USER'])){
           </li>
 
         </ul>
+<?php } else {?>
+
+  <!-- for Publisher-->
+  <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+          <h5 class="centered"><?php echo $_SESSION['PUB'] ."-" . $_SESSION['PUB_ROLE'] ?></h5>
+          <li class="mt">
+            <a class="active" href="index.html">
+              <i class="fa fa-dashboard"></i>
+              <span>Dashboard</span>
+              </a>
+          </li>
+         
+
+        
+
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>Category</span>
+              </a>
+            <ul class="sub">
+            
+              <li><a href="buttons.html">Show Categories</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-user"></i>
+              <span>Author</span>
+              </a>
+            <ul class="sub">
+           
+              <li><a href="author_show.php">Show Authors</a></li>
+            </ul>
+          </li>
+
+
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-desktop"></i>
+              <span>Books</span>
+              </a>
+            <ul class="sub">
+             
+              <li><a href="buttons.html">Show Books</a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+
+<?php } ?>
+
+
         <!-- sidebar menu end-->
       </div>
     </aside>

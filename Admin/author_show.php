@@ -22,7 +22,10 @@ $run=mysqli_query($con,$q);
                     <th>Author Name</th>
                     <th>Since</th>
                     <th>Image</th>
-                   
+                    <?php if(isset($_SESSION['ADMIN'])) { ?>
+                    <td>Edit</td>
+                    <th>Delete</th>
+                    <?php } ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,6 +36,10 @@ $run=mysqli_query($con,$q);
                     <td><?php  echo $data['auth_name'] ?></td>
                     <td><?php  echo $data['since'] ?></td>
                     <td><img src="<?php  echo $data['auth_picture'] ?>" height=100/></td>
+                   <?php if(isset($_SESSION['ADMIN'])) { ?>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                    <?php } ?>
                   </tr>
 <?php } ?>
                  

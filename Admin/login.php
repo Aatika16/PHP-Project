@@ -90,17 +90,29 @@ include('connection.php');
 if(isset($_POST['btn'])){
 $u=$_POST['user'];
 $p=$_POST['pwd'];
-$q="SELECT users.*,roles.role_name FROM `users` join roles on roles.id=users.role_id_FK WHERE username='$u' and password='$p' and role_id_FK='1'";
-$run=mysqli_query($con,$q);
-$rows=mysqli_num_rows($run);
-if($rows==0){
-  echo "<script>alert('Login failed')</script>";
+//For Admin
+$q1="SELECT users.*,roles.role_name FROM `users` join roles on roles.id=users.role_id_FK WHERE username='$u' and password='$p' and role_id_FK='1'";
+$run1=mysqli_query($con,$q1);
+//For Publisher
+$q2="SELECT users.*,roles.role_name FROM `users` join roles on roles.id=users.role_id_FK WHERE username='$u' and password='$p' and role_id_FK='4'";
+$run2=mysqli_query($con,$q2);
+
+if(mysqli_num_rows($run1)>0){
+  $data=mysqli_fetch_assoc($run1);
+  $_SESSION['ADMIN']=$u;
+  $_SESSION['ADMIN_ROLE']=$data['role_name'];
+  echo "<script>alert('Admin Login Successfull');window.location.href='index.php'</script>";
+ 
 }
+else if(mysqli_num_rows($run2)>0){
+  $data=mysqli_fetch_assoc($run2);
+  $_SESSION['PUB']=$u;
+  $_SESSION['PUB_ROLE']=$data['role_name'];
+  echo "<script>alert('Publisher Login Successfull');window.location.href='index.php'</script>";
+}
+
 else{
-  $data=mysqli_fetch_assoc($run);
-  $_SESSION['USER']=$u;
-  $_SESSION['ROLE']=$data['role_name'];
-  echo "<script>alert('Login Successfull');window.location.href='index.php'</script>";
+  echo "<script>alert('Login failed')</script>";
 }
 
 }
