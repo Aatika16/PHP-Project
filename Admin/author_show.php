@@ -37,7 +37,7 @@ $run=mysqli_query($con,$q);
                     <td><?php  echo $data['since'] ?></td>
                     <td><img src="<?php  echo $data['auth_picture'] ?>" height=100/></td>
                    <?php if(isset($_SESSION['ADMIN'])) { ?>
-                    <td>Edit</td>
+                    <td><a href="author_edit.php?id=<?php  echo $data['id'] ?>">Edit</a></td>
                     <td>Delete</td>
                     <?php } ?>
                   </tr>
