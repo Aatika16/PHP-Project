@@ -11,11 +11,15 @@ else if($auth_id!=null){
     $q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
 join author on books.auth_id_FK=author.id  where author.id='$auth_id'";
 }
-else{
-$q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
-join author on books.auth_id_FK=author.id";
+else if(isset($_POST['search_btn'])){
+    $text=$_POST['search'];
+    $q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
+    join author on books.auth_id_FK=author.id where book_name like '%$text%'";
 }
-
+else{
+    $q="SELECT books.*,category.cat_name,author.auth_name FROM `books` join category on books.cat_id_FK=category.id
+    join author on books.auth_id_FK=author.id";
+    }
 
 $run=mysqli_query($con,$q);
 
@@ -106,7 +110,16 @@ $run=mysqli_query($con,$q);
 <!-- courses -->
 <section class="section">
   <div class="container">
+      <form action="" method="post">
+      <input type="text" name="search" placeholder="Type book name here"> 
+      <input type="submit" value="Go" name="search_btn"> 
+      </form>
+
+
+
+
     <div class="row">
+
      <?php while($data=mysqli_fetch_assoc($run)){ ?>
       <div class="col-lg-4 col-sm-6 mb-5">
         <div class="card border-0 rounded-0 hover-shadow">
